@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS-Only Validation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: grid;
+            place-content: center;
+            min-height: 100vh;
+            background-color: #f0f2f5;
+        }
+
+        form {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            /* Important for width calculation */
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.2s ease-in-out;
+        }
+
+        /* --- The Validation Styling --- */
+
+        /* Style the input when it is INVALID and the user has started typing */
+        input:invalid:not(:placeholder-shown) {
+            border-color: #d93025;
+            /* Red border for error */
+        }
+
+        /* Style the input when it becomes VALID */
+        input:valid:not(:placeholder-shown) {
+            border-color: #2e8b57;
+            /* Green border for success */
+        }
+
+        /* 1. Hide the custom error message by default */
+        .error-message {
+            display: none;
+            color: #d93025;
+            /* Red text color */
+            font-size: 0.875em;
+        }
+
+        /* 2. Show the error message when its sibling input is invalid and interacted with */
+        input:invalid:not(:placeholder-shown)+.error-message {
+            display: block;
+            /* This makes it appear */
+            margin-top: 5px;
+            /* Adds a nice space below the input */
+        }
+    </style>
+
+    <h1>Register Your Account</h1>
+
+    <form>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required pattern="[a-z0-9]{5,15}"
+                placeholder="5-15 lowercase letters/numbers"
+                title="Username must be 5-15 characters and contain only lowercase letters and numbers.">
+            <!-- This is our custom error message, placed right after the input -->
+            <span class="error-message">Invalid username. Use 5-15 lowercase letters or numbers.</span>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+
+</html>
